@@ -1,17 +1,40 @@
 body{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background-color: #FFC312;
+    color: black;
 }
 .letter{
     margin: 5px;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 4vw;
+    cursor: pointer;
+    text-shadow: 1px 1px 3px rgb(66, 66, 66);
+}
+
+.secret{
+    cursor: default;
+    color: #EA2027;
 }
 
 .selected{
-    color: grey;
-    font-size: 0.8em;
+    color: rgb(66, 66, 66);
+    font-size: 3vw;
+    text-shadow: none;
+    cursor: default;
 }
 
 .hidden{
     display: none;
+}
+
+#end-game, .input{
+    margin-top: 1vmax;
+    color: #009432;
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+#score{
+    font-size: 2vw;
 }

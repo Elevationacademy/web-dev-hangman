@@ -26,10 +26,10 @@ const renderSecretWordLetters = function () {
 
     for (let letter of GAME.secretWord.split("")) {
         if (isSelected(letter)) {
-            secretWordDiv.append("<span class=letter>" + letter + "<span>")
+            secretWordDiv.append("<span class='letter secret'>" + letter + "<span>")
         }
         else {
-            secretWordDiv.append("<span class=letter>_<span>")
+            secretWordDiv.append("<span class='letter secret'>_<span>")
         }
     }
 }
