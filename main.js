@@ -26,11 +26,10 @@ const showGameOver = function () {
 }
 
 const showCongratulations = function () {
-    $("#end-game").append("<div class=end-game>Congratulations! You guessed the word " + GAME.secretWord + "!</div>")
+    $("#end-game").append("<div class=end-game>Congratulations! You guessed the word!</div>")
 }
 
 const renderEndGame = function () {
-    $("#game").addClass("hidden")
     $("#end-game").empty()
     $("#end-game").removeClass("hidden")
     $(".input").removeClass("hidden")
@@ -40,7 +39,7 @@ const renderEndGame = function () {
 }
 
 const renderScore = function () {
-    $("#score").text(GAME.score)
+    $("#score").text("Score: " + GAME.score)
 }
 
 const isSelected = function (l) {
@@ -54,10 +53,10 @@ const renderSecretWordLetters = function () {
 
     for (let letter of GAME.secretWord.split("")) {
         if (isSelected(letter)) {
-            secretWordDiv.append("<span class=letter>" + letter + "<span>")
+            secretWordDiv.append("<span class='letter secret'>" + letter + "<span>")
         }
         else {
-            secretWordDiv.append("<span class=letter>_<span>")
+            secretWordDiv.append("<span class='letter secret'>_<span>")
         }
     }
 }
@@ -90,13 +89,13 @@ render = function () {
         renderEndGame()
     }
     else {
-        $("#hint").text(GAME.hint)
+        $("#hint").text("Hint: " + GAME.hint)
         $("#end-game").addClass("hidden")
-
-        renderScore()
-        renderSecretWordLetters()
-        renderAvailableLetters()
     }
+
+    renderScore()
+    renderSecretWordLetters()
+    renderAvailableLetters()
 }
 
 const startGame = function () {
@@ -105,6 +104,8 @@ const startGame = function () {
     GAME.hint = $("#hint-input").val()
     GAME.score = 100
 
+    $("#secret-word-input").val("")
+    $("#hint-input").val("")
     $(".input").addClass("hidden")
     $("#game").removeClass("hidden")
 

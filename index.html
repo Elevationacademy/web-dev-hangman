@@ -9,11 +9,7 @@
 
 <body>
 
-    <div class="input">
-        <input type="text" id="secret-word-input" placeholder="Enter a word">
-        <input type="text" id="hint-input" placeholder="Write a hint">
-        <button onclick="startGame()">Start Game</button>
-    </div>
+    <h1>Hangman</h1>
 
     <div id="game" class="hidden">
         <div id="score">100</div>
@@ -23,6 +19,12 @@
     </div>
 
     <div id="end-game" class="hidden"></div>
+
+    <div class="input">
+        <input type="text" id="secret-word-input" placeholder="Enter a word" autofocus>
+        <input type="text" id="hint-input" placeholder="Write a hint">
+        <button onclick="startGame()">Start New Game</button>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
