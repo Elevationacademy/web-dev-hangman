@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Hangman</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+</head>
+
+<body>
+
+    <div class="input">
+        <input type="text" id="secret-word-input" placeholder="Enter a word">
+        <input type="text" id="hint-input" placeholder="Write a hint">
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="game" class="hidden">
+        <div id="score">100</div>
+        <div id="secret-word"></div>
+        <p id="hint"></p>
+        <div id="all-letters-display"></div>
+    </div>
+
+    <div id="end-game" class="hidden"></div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.letter{
+    margin: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.selected{
+    color: grey;
+    font-size: 0.8em;
+}
+
+.hidden{
+    display: none;
+}
