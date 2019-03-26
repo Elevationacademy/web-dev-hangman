@@ -1,113 +1,66 @@
-const GAME = {
-    allLetters: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
-    selectedLetters: [],
-    secretWord: "",
-    hint: "",
-    score: 100
+let allLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+let word = ""
+let hint = ""
+let guessedLetters = []
+
+function displayScore() {
+    $("#score").append("<div id='score-num'>100")
 }
 
-const updateScore = function (letter) {
-    if (GAME.secretWord.includes(letter) && !GAME.selectedLetters.includes(letter)) {
-        GAME.score += 5
-    }
-    else if (!GAME.secretWord.includes(letter) && !GAME.selectedLetters.includes(letter)) {
-        GAME.score -= 20
-    }
+function displayHint(){
+    $("#hint").append("<div>" + hint + "</div>")
 }
 
-const selectLetter = function (letter) {
-    updateScore(letter)
-    GAME.selectedLetters.push(letter)
-    render()
-}
-
-const showGameOver = function () {
-    $("#end-game").append("<div class=end-game>Alas, you lost. The word was " + GAME.secretWord + "</div>")
-}
-
-const showCongratulations = function () {
-    $("#end-game").append("<div class=end-game>Congratulations! You guessed the word!</div>")
-}
-
-const renderEndGame = function () {
-    $("#end-game").empty()
-    $("#end-game").removeClass("hidden")
-    $(".input").removeClass("hidden")
-
-    if (GAME.score <= 0) { showGameOver() }
-    else { showCongratulations() }
-}
-
-const renderScore = function () {
-    $("#score").text("Score: " + GAME.score)
-}
-
-const isSelected = function (l) {
-    return GAME.selectedLetters.includes(l)
-}
-
-
-const renderSecretWordLetters = function () {
-    const secretWordDiv = $("#secret-word")
-    secretWordDiv.empty()
-
-    for (let letter of GAME.secretWord.split("")) {
-        if (isSelected(letter)) {
-            secretWordDiv.append("<span class='letter secret'>" + letter + "<span>")
+function displayAllLetters() {
+    for (let letter of allLetters) {
+        if (!guessedLetters.includes(letter)) {
+            $("#all-letters").append(`<span class=letter>${letter}</span>`)
         }
         else {
-            secretWordDiv.append("<span class='letter secret'>_<span>")
+            $("#all-letters").append(`<span class=selected>${letter}</span>`)
         }
+
     }
 }
 
-const renderAvailableLetters = function () {
-    const allLettersDisplayDiv = $("#all-letters-display")
-    allLettersDisplayDiv.empty()
 
-    for (let letter of GAME.allLetters) {
-        if (isSelected(letter)) {
-            allLettersDisplayDiv.append("<span class='selected letter'>" + letter + "</span>")
+function displaySecretWordLetters() {
+    for (let letter of word) {
+        if (guessedLetters.includes(letter)) {
+            $("#secret-word").append(`<span class='letter guessed-letter'>${letter}</span>`)
         }
         else {
-            allLettersDisplayDiv.append("<span onclick=selectLetter('" + letter + "') class=letter>" + letter + "</span>")
+            $("#secret-word").append(`<span class='letter guessed-letter'>_</span>`)
         }
     }
 }
 
-const guessedAllLetters = function () {
-    for (let letter of GAME.secretWord.split("")) {
-        if (!GAME.selectedLetters.includes(letter)) {
-            return false
-        }
-    }
-    return true
+
+function selectLetter() {
+    let letter = $("#letter").val()
+    guessedLetters.push(letter)
+
+    $("#all-letters").empty()
+    $("#secret-word").empty()
+    $("#letter").val("")
+
+    displayAllLetters()
+    displaySecretWordLetters()
 }
 
-render = function () {
-    if (GAME.score <= 0 || guessedAllLetters()) {
-        renderEndGame()
-    }
-    else {
-        $("#hint").text("Hint: " + GAME.hint)
-        $("#end-game").addClass("hidden")
-    }
-
-    renderScore()
-    renderSecretWordLetters()
-    renderAvailableLetters()
+function displayLetterInput() {
+    $("#input-area").append(`<input placeholder="Letter (capital)" id="letter">
+<button onclick=selectLetter()>Select Letter</button>`)
 }
 
-const startGame = function () {
-    GAME.selectedLetters = []
-    GAME.secretWord = $("#secret-word-input").val().toUpperCase()
-    GAME.hint = $("#hint-input").val()
-    GAME.score = 100
+function startGame() {
+    word = $("#word-input").val()
+    hint = $("#hint-input").val()
 
-    $("#secret-word-input").val("")
-    $("#hint-input").val("")
-    $(".input").addClass("hidden")
-    $("#game").removeClass("hidden")
-
-    render()
+    displayScore()
+    displaySecretWordLetters()
+    displayHint()
+    displayAllLetters()
+    displayLetterInput()
 }
