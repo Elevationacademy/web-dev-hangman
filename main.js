@@ -3,7 +3,7 @@ let allLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M
 let score = 100
 let word = ""
 let hint = ""
-let guessedLetters = []
+let guessedLetters = ["C", "I"]
 
 function displayScore() {
     $("#score").empty()
@@ -13,7 +13,9 @@ function displayScore() {
 function displaySecretWordLetters() {
     $("#secret-word").empty()
 
-    for (let letter of word) {
+    for (let index in word) {
+        let letter = word[index]
+
         if (guessedLetters.includes(letter)) {
             $("#secret-word").append(`<span class='letter guessed-letter'>${letter}</span>`)
         }
@@ -31,7 +33,9 @@ function displayHint() {
 function displayAllLetters() {
     $("#all-letters").empty()
 
-    for (let letter of allLetters) {
+    for (let index in allLetters) {
+        let letter = allLetters[index]
+
         if (!guessedLetters.includes(letter)) {
             $("#all-letters").append(`<span class=letter>${letter}</span>`)
         }
@@ -43,23 +47,26 @@ function displayAllLetters() {
 
 function displayLetterInput() {
     $("#input-area").empty()
-    $("#input-area").append(`
-    <input placeholder="Letter (capital)" id="letter">
-    <button onclick=selectLetter()>Select Letter</button>`)
+    $("#input-area").append("<input placeholder='Letter (capital)' id='letter'>")
+    $("#input-area").append("<button onclick=selectLetter()>Select Letter</button>")
 }
 
 function selectLetter() {
     let letter = $("#letter").val()
-    if(word.includes(letter) && !guessedLetters.includes(letter)){
+    if (word.includes(letter) && !guessedLetters.includes(letter)) {
         score = score + 5
     }
-    else{
+    else {
         score = score - 20
     }
-    
+
     guessedLetters.push(letter)
 
     $("#letter").val("")
+
+    if (score <= 0) {
+        $("#game-over").append("You lost")
+    }
 
     displayScore()
     displayAllLetters()
@@ -69,7 +76,7 @@ function selectLetter() {
 function startGame() {
     word = $("#word-input").val()
     hint = $("#hint-input").val()
-    guessedLetters = []
+    // guessedLetters = []
 
     displayScore()
     displaySecretWordLetters()
@@ -77,6 +84,6 @@ function startGame() {
     displayAllLetters()
     displayLetterInput()
 
-    $("#word-input").val("")
-    $("#hint-input").val("")
+    // $("#word-input").val("")
+    // $("#hint-input").val("")
 }
